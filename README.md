@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Decision Lab — Dashboard Starter Kits
 
-## Getting Started
+Human-centered AI workshop: pick a decision challenge, preview a finished dashboard, customize a project kit, and build further in Cursor.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
+cp .env.local.example .env.local   # add ANTHROPIC_API_KEY
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Claude API (ClickOps)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create a key at [Anthropic Console](https://console.anthropic.com/settings/keys)
+2. Either paste it in **Settings** (`/settings`) — stored in browser `localStorage` — or set `ANTHROPIC_API_KEY` in `.env.local`
+3. Open any project → **ClickOps · Claude** (`/ops/[slug]`)
+4. Click an action (Build website, Improve dashboard, …) → **Run ClickOps** → download / preview HTML
 
-## Learn More
+## What’s included
 
-To learn more about Next.js, take a look at the following resources:
+| Route | Purpose |
+|---|---|
+| `/` | Landing, catalog (9 ideas), how it works, project kit ZIP wizard |
+| `/challenge/[slug]` | Challenge brief, sample data, sources, Cursor build steps |
+| `/dashboard/[slug]` | Finished specialized starter dashboard for each idea |
+| `/ops/[slug]` | ClickOps studio — Claude builds websites/dashboards per project |
+| `/guide` | Smart guide — lighted squares + notes index for all 9 projects |
+| `/settings` | Claude API key (BYOK) |
+| `/forecast` | Supply-chain forecast lab (baselines + holdout metrics) |
+| `/api/clickops` | Streaming Claude endpoint (header or env key) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### The 9 finished projects
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Personal AI Assistant** — inbox, calendar, focus list (localStorage), integrations guidance in ZIP  
+2. **Supply Chain & Demand** — location demand, trends, replenishment watch → Forecast Lab  
+3. **Customer Experience** — theme breakdown, sentiment, investigation priorities  
+4. **Service & Field Operations** — backlog, open/closed, priority queue  
+5. **Sustainability & Impact** — resource use by site over time  
+6. **Urban Trees & Climate** — neighborhood canopy / coverage gaps  
+7. **Housing & Community** — inquiries by neighborhood and emerging needs  
+8. **Market & Risk Intelligence** — multi-series risk indicators  
+9. **Professional Services** — intake pipeline and workflow stages  
 
-## Deploy on Vercel
+Kits are generated **client-side** (JSZip). No GitHub, Supabase, Vercel, or live OAuth is connected in this demo.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js 16 · React 19 · Tailwind CSS 4 · Recharts · JSZip · Outfit + Space Mono
