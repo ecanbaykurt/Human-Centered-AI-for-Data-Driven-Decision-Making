@@ -1,0 +1,25 @@
+date,category,value,status
+2025-04-01,North Office,21,Watch
+2025-04-01,Harbor Office,30,Closed
+2025-04-01,West Office,19,Open
+2025-04-01,Central Depot,33,Open
+2025-05-01,North Office,35,Open
+2025-05-01,Harbor Office,41,Watch
+2025-05-01,West Office,29,Watch
+2025-05-01,Central Depot,27,Closed
+2025-06-01,North Office,27,Open
+2025-06-01,Harbor Office,32,Watch
+2025-06-01,West Office,29,Open
+2025-06-01,Central Depot,35,Closed
+2025-07-01,North Office,31,Closed
+2025-07-01,Harbor Office,40,Closed
+2025-07-01,West Office,16,Open
+2025-07-01,Central Depot,29,Open
+2025-08-01,North Office,26,Open
+2025-08-01,Harbor Office,33,Open
+2025-08-01,West Office,30,Watch
+2025-08-01,Central Depot,32,Closed
+2025-09-01,North Office,37,Watch
+2025-09-01,Harbor Office,31,Watch
+2025-09-01,West Office,21,Watch
+2025-09-01,Central Depot,29,Closed

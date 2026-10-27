@@ -1,0 +1,25 @@
+date,category,value,status
+2025-04-01,North Site,38,Open
+2025-04-01,Central Site,18,Open
+2025-04-01,South Site,20,Open
+2025-04-01,East Site,35,Review
+2025-05-01,North Site,41,Closed
+2025-05-01,Central Site,31,Closed
+2025-05-01,South Site,27,Closed
+2025-05-01,East Site,30,Closed
+2025-06-01,North Site,34,Open
+2025-06-01,Central Site,18,Open
+2025-06-01,South Site,27,Closed
+2025-06-01,East Site,34,Review
+2025-07-01,North Site,46,Review
+2025-07-01,Central Site,32,Open
+2025-07-01,South Site,21,Closed
+2025-07-01,East Site,26,Open
+2025-08-01,North Site,35,Review
+2025-08-01,Central Site,21,Closed
+2025-08-01,South Site,28,Open
+2025-08-01,East Site,33,Open
+2025-09-01,North Site,43,Review
+2025-09-01,Central Site,16,Review
+2025-09-01,South Site,17,Closed
+2025-09-01,East Site,34,Review

@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import type { Challenge } from "@/data/challenges";
+import { projectPath } from "@/data/github";
+import CopyGithubButton from "@/components/CopyGithubButton";
 
 const ART_POSITION: Record<number, string> = {
   0: "0% 50%",
@@ -11,15 +15,12 @@ const ART_POSITION: Record<number, string> = {
 type ChallengeCardProps = {
   challenge: Challenge;
   onCustomize?: (challenge: Challenge) => void;
-  onDownload?: (challenge: Challenge) => void;
 };
 
 export default function ChallengeCard({
   challenge,
   onCustomize,
-  onDownload,
 }: ChallengeCardProps) {
-  const isPersonalAssistant = challenge.slug === "personal-ai-assistant";
   const artPosition = ART_POSITION[challenge.artVariant] ?? ART_POSITION[0];
 
   return (
@@ -42,10 +43,10 @@ export default function ChallengeCard({
 
       <div className="flex items-center justify-between">
         <span className="font-mono text-[9px] font-bold uppercase tracking-[0.08em] text-purple">
-          {challenge.category} / STARTER KIT
+          {challenge.category} / OPEN SOURCE
         </span>
-        <span className="text-sm text-muted-soft" aria-hidden>
-          ↗
+        <span className="font-mono text-[9px] text-muted-soft">
+          {projectPath(challenge.slug)}/
         </span>
       </div>
 
@@ -56,7 +57,7 @@ export default function ChallengeCard({
         {challenge.question}
       </p>
 
-      <div className="mt-auto space-y-3 border-t border-border-soft pt-4 text-[13px] font-bold">
+      <div className="mt-auto space-y-2.5 border-t border-border-soft pt-4 text-[13px] font-bold">
         <div className="flex items-center justify-between gap-3">
           <Link
             href={`/challenge/${challenge.slug}`}
@@ -64,30 +65,25 @@ export default function ChallengeCard({
           >
             Explore challenge →
           </Link>
-
-          {isPersonalAssistant ? (
-            <button
-              type="button"
-              className="btn-secondary text-[13px]"
-              onClick={() => onDownload?.(challenge)}
-            >
-              Download ZIP ↓
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="btn-secondary text-[13px]"
-              onClick={() => onCustomize?.(challenge)}
-            >
-              Customize →
-            </button>
-          )}
+          <button
+            type="button"
+            className="btn-secondary text-[13px]"
+            onClick={() => onCustomize?.(challenge)}
+          >
+            Customize →
+          </button>
         </div>
+        <CopyGithubButton
+          challenge={challenge}
+          className="w-full [&_button]:w-full [&_button]:justify-center"
+          label="Copy GitHub"
+          variant="dark"
+        />
         <Link
           href={`/ops/${challenge.slug}`}
-          className="inline-flex w-full items-center justify-center rounded-full bg-dark-strip px-3 py-2.5 text-[12px] font-bold text-lime no-underline transition hover:opacity-90"
+          className="inline-flex w-full items-center justify-center rounded-full border border-border bg-surface px-3 py-2 text-[12px] font-bold text-ink no-underline transition hover:bg-soft-purple"
         >
-          Open ClickOps · Claude →
+          ClickOps · Claude →
         </Link>
       </div>
     </article>

@@ -1,0 +1,25 @@
+date,category,value,status
+2025-04-01,Roxbury,35,Referral
+2025-04-01,Dorchester,20,Open
+2025-04-01,Mattapan,20,Open
+2025-04-01,South End,34,Open
+2025-05-01,Roxbury,39,Closed
+2025-05-01,Dorchester,28,Referral
+2025-05-01,Mattapan,31,Open
+2025-05-01,South End,27,Referral
+2025-06-01,Roxbury,37,Referral
+2025-06-01,Dorchester,19,Open
+2025-06-01,Mattapan,26,Closed
+2025-06-01,South End,29,Open
+2025-07-01,Roxbury,39,Closed
+2025-07-01,Dorchester,30,Closed
+2025-07-01,Mattapan,18,Closed
+2025-07-01,South End,23,Closed
+2025-08-01,Roxbury,37,Open
+2025-08-01,Dorchester,22,Referral
+2025-08-01,Mattapan,22,Referral
+2025-08-01,South End,34,Referral
+2025-09-01,Roxbury,48,Closed
+2025-09-01,Dorchester,16,Open
+2025-09-01,Mattapan,15,Referral
+2025-09-01,South End,27,Closed

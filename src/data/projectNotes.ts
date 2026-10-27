@@ -29,10 +29,12 @@ const sharedTail = (slug: string): GuideStep[] => [
   },
   {
     id: "kit",
-    title: "Download your kit",
+    title: "Copy GitHub prompt",
     detail:
-      "Customize the project kit with your brief. ZIP includes README, prompts, and sample data — stays on this device.",
-    tip: "Never put secrets in the ZIP or in client HTML.",
+      "Fill your brief → Copy GitHub. Claude customizes a Cursor Agent prompt with the open-source path projects/" +
+      slug +
+      "/. Paste into Cursor to start building.",
+    tip: "Never put secrets in prompts or commit API keys.",
     href: `/challenge/${slug}`,
     hrefLabel: "Challenge brief →",
   },
@@ -63,7 +65,7 @@ export const projectNotes: Record<string, ProjectNotes> = {
     notes: [
       "Start with the decision: what should someone do in the first 10 minutes of the day?",
       "Priorities are saved in localStorage key decisionlab-personal-tasks-v1.",
-      "INTEGRATIONS.md in the ZIP covers Google Workspace and Microsoft Graph.",
+      "See projects/personal-ai-assistant/AGENT.md for Google Workspace / Graph notes.",
       "Use ClickOps → Morning brief UI for a shareable single-file HTML demo.",
     ],
     guide: [

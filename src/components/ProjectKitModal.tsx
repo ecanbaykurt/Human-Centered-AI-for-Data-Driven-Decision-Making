@@ -10,8 +10,8 @@ import {
   type FormEvent,
 } from "react";
 import type { Challenge } from "@/data/challenges";
-import type { SampleRow } from "@/data/sampleData";
-import { buildProjectKit } from "@/lib/zipKit";
+import { projectGithubUrl, projectPath } from "@/data/github";
+import { getStoredApiKey } from "@/lib/apiKey";
 
 const SUPPLY_DATASETS = [
   "UCI Online Retail",
@@ -44,17 +44,6 @@ type ProjectKitModalProps = {
   open: boolean;
   onClose: () => void;
 };
-
-function downloadBlob(blob: Blob, filename: string) {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-}
 
 function parseCsv(text: string): { headers: string[]; rows: string[][] } {
   const lines = text
@@ -121,7 +110,9 @@ export default function ProjectKitModal({
   const [mapDate, setMapDate] = useState("");
   const [mapCategory, setMapCategory] = useState("");
   const [mapValue, setMapValue] = useState("");
-  const [status, setStatus] = useState("Your information stays on this device.");
+  const [status, setStatus] = useState(
+    "Brief stays on this device. Copy GitHub pastes a Cursor Agent prompt.",
+  );
   const [busy, setBusy] = useState(false);
 
   const isSupply = challenge?.slug === "supply-chain-demand";
@@ -138,7 +129,9 @@ export default function ProjectKitModal({
     setMapDate("");
     setMapCategory("");
     setMapValue("");
-    setStatus("Your information stays on this device.");
+    setStatus(
+      "Brief stays on this device. Copy GitHub pastes a Cursor Agent prompt.",
+    );
     setBusy(false);
   }, []);
 
@@ -247,49 +240,60 @@ th{background:#eeeaff}</style></head><body>
     e.preventDefault();
     if (!challenge) return;
     setBusy(true);
-    setStatus("Building your project kit…");
+    setStatus("Claude is customizing your Cursor Agent prompt…");
     try {
-      const mappedRows: SampleRow[] | undefined = csv
-        ? csv.rows
-            .map((row) => {
-              const di = csv.headers.indexOf(mapDate);
-              const ci = csv.headers.indexOf(mapCategory);
-              const vi = csv.headers.indexOf(mapValue);
-              const value = Number(row[vi]);
-              return {
-                date: row[di] ?? "",
-                category: row[ci] ?? "",
-                value: Number.isFinite(value) ? value : 0,
-                status: "Open",
-              };
-            })
-            .filter((r) => r.date && r.category)
-        : undefined;
+      const dataNote = [
+        dataset.trim(),
+        csv
+          ? `Optional CSV mapped locally: date=${mapDate}, category=${mapCategory}, value=${mapValue} (${csv.rows.length} preview rows). Keep PII off git.`
+          : "",
+      ]
+        .filter(Boolean)
+        .join(" ");
 
-      const blob = await buildProjectKit({
-        challenge,
-        fields: {
-          project: projectName.trim(),
-          audience: audience.trim() || undefined,
-          problem: problem.trim(),
-          data: dataset.trim() || undefined,
-          goals: goals.trim() || undefined,
-          source: isSupply ? sourceChoice : undefined,
-          model: isSupply ? modelChoice : undefined,
-        },
-        rows: mappedRows?.length ? mappedRows : undefined,
-        userCsv: csv?.raw,
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+      const key = getStoredApiKey();
+      if (key) headers["x-anthropic-api-key"] = key;
+
+      const res = await fetch("/api/github-prompt", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          slug: challenge.slug,
+          fields: {
+            project: projectName.trim(),
+            audience: audience.trim() || undefined,
+            problem: problem.trim(),
+            data: dataNote || undefined,
+            goals: goals.trim() || undefined,
+            source: isSupply ? sourceChoice : undefined,
+            model: isSupply ? modelChoice : undefined,
+          },
+        }),
       });
-      const safeName = projectName
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
-      downloadBlob(blob, `${safeName || challenge.slug}-project-kit.zip`);
-      setStatus("Download started. Your information stayed on this device.");
+      const data = (await res.json()) as {
+        prompt?: string;
+        warning?: string;
+        path?: string;
+        error?: string;
+      };
+      if (!data.prompt) throw new Error(data.error || "No prompt returned");
+
+      await navigator.clipboard.writeText(data.prompt);
+      setStatus(
+        data.warning
+          ? data.warning
+          : `Copied GitHub + Cursor prompt. Paste into Cursor Agent. Path: ${data.path || projectPath(challenge.slug)}/`,
+      );
     } catch (err) {
       console.error(err);
-      setStatus("Could not build the ZIP. Try again.");
+      setStatus(
+        err instanceof Error
+          ? err.message
+          : "Could not copy prompt. Check Claude API key and try again.",
+      );
     } finally {
       setBusy(false);
     }
@@ -311,7 +315,7 @@ th{background:#eeeaff}</style></head><body>
           <div>
             <div className="eyebrow">
               <span className="eyebrow-dot" aria-hidden />
-              Your project kit
+              Copy GitHub · Cursor Agent
             </div>
             <h2
               id={titleId}
@@ -598,14 +602,28 @@ th{background:#eeeaff}</style></head><body>
           <div className="mt-5 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
             <span className="text-[12px] text-muted">{status}</span>
             <button type="submit" className="btn-primary" disabled={busy}>
-              {busy ? "Creating…" : "Create project ZIP ↓"}
+              {busy ? "Customizing with Claude…" : "Copy GitHub prompt →"}
             </button>
           </div>
 
           <p className="mt-4 text-[12px] leading-relaxed text-muted-soft">
-            Included: a working dashboard, your brief, optional dataset, and
-            role-based prompts for your AI coding assistant. GitHub, Supabase,
-            Vercel, and automated agents are not connected here.
+            Copies an open-source GitHub path plus a Claude-customized Cursor
+            Agent prompt from your brief. Paste into Cursor / Claude to start
+            building in{" "}
+            <code className="font-mono text-[11px]">
+              {challenge ? projectPath(challenge.slug) : "projects/…"}/
+            </code>
+            . Tree:{" "}
+            {challenge ? (
+              <a
+                href={projectGithubUrl(challenge.slug)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-purple no-underline"
+              >
+                GitHub ↗
+              </a>
+            ) : null}
           </p>
         </form>
       </div>

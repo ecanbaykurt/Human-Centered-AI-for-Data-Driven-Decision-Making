@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import type { Challenge } from "@/data/challenges";
+import { projectPath } from "@/data/github";
+import CopyGithubButton from "@/components/CopyGithubButton";
 
 export const CHART = {
   purple: "#7450e8",
@@ -49,8 +51,12 @@ export default function DashboardShell({
             <h1 className="mt-2 text-[clamp(28px,4vw,40px)] font-extrabold tracking-[-0.04em] text-ink">
               {title ?? challenge.name}
             </h1>
+            <p className="mt-1 font-mono text-[11px] text-muted">
+              {projectPath(challenge.slug)}/
+            </p>
           </div>
           <div className="flex shrink-0 flex-wrap items-center gap-2">
+            <CopyGithubButton challenge={challenge} label="Copy GitHub" />
             <Link
               href={`/ops/${challenge.slug}`}
               className="inline-flex items-center rounded-full bg-dark-strip px-4 py-2.5 text-[13px] font-bold text-lime no-underline hover:opacity-90"

@@ -6,13 +6,9 @@ import ChallengeCard from "@/components/ChallengeCard";
 
 type ChallengeGridProps = {
   onCustomize?: (challenge: Challenge) => void;
-  onDownload?: (challenge: Challenge) => void;
 };
 
-export default function ChallengeGrid({
-  onCustomize,
-  onDownload,
-}: ChallengeGridProps) {
+export default function ChallengeGrid({ onCustomize }: ChallengeGridProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("All");
 
@@ -44,7 +40,7 @@ export default function ChallengeGrid({
             Explore the ideas.
           </h2>
           <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-muted">
-            9 practical projects. One goal: turn information into action.
+            9 open-source project paths. Copy GitHub → paste into Cursor Agent.
           </p>
         </div>
 
@@ -81,7 +77,6 @@ export default function ChallengeGrid({
             key={challenge.slug}
             challenge={challenge}
             onCustomize={onCustomize}
-            onDownload={onDownload}
           />
         ))}
       </div>
@@ -93,9 +88,12 @@ export default function ChallengeGrid({
       )}
 
       <p className="mt-10 max-w-3xl text-[13px] leading-relaxed text-muted-soft">
-        Each challenge includes a starter project with fictional sample data and
-        Cursor prompts. The personal assistant includes a guide to email and
-        calendar integrations.
+        Each challenge maps to{" "}
+        <code className="font-mono text-[11px]">projects/&lt;slug&gt;/</code> in
+        the public GitHub repo. <strong>Copy GitHub</strong> builds a
+        Claude-customized Cursor Agent prompt from your brief + dashboard
+        requirements. Personal assistant includes email/calendar integration
+        notes in its project folder.
       </p>
     </main>
   );

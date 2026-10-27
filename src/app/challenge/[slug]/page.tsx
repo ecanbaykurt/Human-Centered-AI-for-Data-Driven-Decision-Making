@@ -120,7 +120,11 @@ export default async function ChallengePage({ params }: PageProps) {
               </h2>
               <p className="mt-2 text-[14px] text-muted">
                 Three fictional rows of {challenge.measure.toLowerCase()} (
-                {challenge.unit}). Full sample ships in the starter ZIP.
+                {challenge.unit}). Full sample ships in{" "}
+                <code className="font-mono text-[12px]">
+                  projects/{challenge.slug}/data/sample_data.csv
+                </code>
+                .
               </p>
               <div className="mt-5 overflow-x-auto rounded-[16px] border border-border bg-surface shadow-[var(--shadow-card)]">
                 <table className="w-full min-w-[480px] border-collapse text-left text-[13px]">
@@ -200,8 +204,13 @@ export default async function ChallengePage({ params }: PageProps) {
                 Make it yours
               </h2>
               <p className="mt-2 text-[13px] leading-relaxed text-muted">
-                Download a working demo with prompts for your AI coding
-                assistant. Your form answers stay on this device.
+                Copy GitHub → Claude customizes a Cursor Agent prompt from your
+                brief + this dashboard’s requirements. Paste into Cursor to
+                work in{" "}
+                <code className="font-mono text-[11px]">
+                  projects/{challenge.slug}/
+                </code>
+                .
               </p>
               <div className="mt-5">
                 <ChallengeActions challenge={challenge} variant="kit" />

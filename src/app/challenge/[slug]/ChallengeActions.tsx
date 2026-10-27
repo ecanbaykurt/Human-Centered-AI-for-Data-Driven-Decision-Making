@@ -1,34 +1,11 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import type { Challenge } from "@/data/challenges";
-import { buildProjectKit } from "@/lib/zipKit";
+import { projectGithubUrl, projectPath } from "@/data/github";
 import ProjectKitModal from "@/components/ProjectKitModal";
-
-function downloadBlob(blob: Blob, filename: string) {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-}
-
-async function buildStarterZip(challenge: Challenge) {
-  return buildProjectKit({
-    challenge,
-    fields: {
-      project: challenge.name,
-      audience: "Workshop participant",
-      problem: challenge.suggestion || challenge.problem,
-      data: `Sample data inspired by ${challenge.source.name}`,
-      goals: challenge.ideas.join("; "),
-    },
-  });
-}
+import CopyGithubButton from "@/components/CopyGithubButton";
 
 type ChallengeActionsProps = {
   challenge: Challenge;
@@ -41,21 +18,7 @@ export default function ChallengeActions({
   variant = "hero",
 }: ChallengeActionsProps) {
   const [open, setOpen] = useState(false);
-  const [busy, setBusy] = useState(false);
   const isSupply = challenge.slug === "supply-chain-demand";
-
-  const downloadZip = useCallback(async () => {
-    setBusy(true);
-    try {
-      const blob = await buildStarterZip(challenge);
-      downloadBlob(blob, `${challenge.slug}-starter.zip`);
-    } catch (err) {
-      console.error(err);
-      window.alert("Could not build the starter ZIP. Please try again.");
-    } finally {
-      setBusy(false);
-    }
-  }, [challenge]);
 
   if (variant === "kit") {
     return (
@@ -66,21 +29,26 @@ export default function ChallengeActions({
         >
           ClickOps · Build with Claude →
         </Link>
+        <CopyGithubButton
+          challenge={challenge}
+          className="mb-3 w-full [&_button]:w-full"
+          label="Copy GitHub"
+        />
         <button
           type="button"
           className="btn-primary w-full"
           onClick={() => setOpen(true)}
         >
-          Customize project kit →
+          Customize brief → Copy GitHub
         </button>
-        <button
-          type="button"
+        <a
+          href={projectGithubUrl(challenge.slug)}
+          target="_blank"
+          rel="noopener noreferrer"
           className="btn-secondary mt-3 w-full justify-center"
-          onClick={() => void downloadZip()}
-          disabled={busy}
         >
-          {busy ? "Building ZIP…" : "Quick download ZIP ↓"}
-        </button>
+          Open {projectPath(challenge.slug)}/ ↗
+        </a>
         <ProjectKitModal
           challenge={challenge}
           open={open}
@@ -93,13 +61,13 @@ export default function ChallengeActions({
   return (
     <>
       <div className="flex flex-wrap items-center gap-3">
+        <CopyGithubButton challenge={challenge} label="Copy GitHub" />
         <button
           type="button"
-          className="btn-primary"
-          onClick={() => void downloadZip()}
-          disabled={busy}
+          className="inline-flex items-center rounded-full border border-border bg-surface px-[18px] py-[13px] text-[13px] font-bold text-ink transition-colors hover:border-purple/30 hover:bg-soft-purple"
+          onClick={() => setOpen(true)}
         >
-          {busy ? "Building ZIP…" : "Download starter ZIP ↓"}
+          Customize brief →
         </button>
         <Link
           href={`/dashboard/${challenge.slug}`}
@@ -121,13 +89,6 @@ export default function ChallengeActions({
             Forecast lab ↗
           </Link>
         ) : null}
-        <button
-          type="button"
-          className="btn-secondary px-2 py-2"
-          onClick={() => setOpen(true)}
-        >
-          Open build kit →
-        </button>
       </div>
       <ProjectKitModal
         challenge={challenge}

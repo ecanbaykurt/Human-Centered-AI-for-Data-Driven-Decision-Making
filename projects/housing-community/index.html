@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Housing & Community Impact · Decision Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#f4f4fa; --ink:#17152b; --purple:#7450e8; --lime:#d7fb52; --muted:#626278; --border:#e1e0ec; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:Outfit,system-ui,sans-serif; background:var(--bg); color:var(--ink); }
+    header { padding:28px 5% 12px; border-bottom:1px solid var(--border); background:rgba(248,248,253,.94); }
+    .eyebrow { font-family:"Space Mono",monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--purple); font-weight:700; }
+    h1 { margin:8px 0 0; font-size:clamp(28px,4vw,40px); letter-spacing:-.04em; }
+    main { padding:24px 5% 48px; max-width:1100px; margin:0 auto; }
+    .banner { background:#eeeaff; border:1px solid #ded5ff; border-radius:14px; padding:14px 16px; color:#56478e; font-size:13px; margin-bottom:20px; }
+    .grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+    .card { background:#fff; border:1px solid var(--border); border-radius:16px; padding:18px; }
+    .card h2 { margin:0 0 8px; font-size:16px; }
+    .muted { color:var(--muted); font-size:13px; line-height:1.5; }
+    .bar-row { display:grid; grid-template-columns:1fr 2fr auto; gap:10px; align-items:center; font-size:13px; margin:8px 0; }
+    .track { height:10px; background:#eceaf5; border-radius:999px; overflow:hidden; }
+    .track i { display:block; height:100%; background:var(--purple); border-radius:999px; }
+    code { font-family:"Space Mono",monospace; font-size:11px; }
+    a { color:var(--purple); font-weight:700; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Decision Lab · Challenge 07 · Open source</div>
+    <h1>Explore housing and community needs</h1>
+    <p class="muted" style="max-width:60ch;margin-top:8px">Where are housing and community needs emerging?</p>
+  </header>
+  <main>
+    <div class="banner"><strong>Demo data.</strong> Fictional housing inquiries. Customize via Cursor using the Copy GitHub prompt from the workshop site. Path: <code>projects/housing-community/</code></div>
+    <div class="grid">
+      <section class="card">
+        <h2>Decision</h2>
+        <p class="muted">Compare housing indicators and plan where to learn more.</p>
+      </section>
+      <section class="card">
+        <h2>Ideas</h2>
+        <ul class="muted"><li>Inquiries by neighborhood</li><li>Over time</li><li>What cannot be inferred</li></ul>
+      </section>
+      <section class="card">
+        <h2>By category</h2>
+      <div class="bar-row"><span>Roxbury</span><div class="track"><i style="width:87%"></i></div><b>87</b></div>
+      <div class="bar-row"><span>Dorchester</span><div class="track"><i style="width:68%"></i></div><b>68</b></div>
+      <div class="bar-row"><span>Mattapan</span><div class="track"><i style="width:84%"></i></div><b>84</b></div>
+      <div class="bar-row"><span>South End</span><div class="track"><i style="width:69%"></i></div><b>69</b></div>
+      </section>
+    </div>
+    <p class="muted" style="margin-top:22px">Repo: <a href="https://github.com/ecanbaykurt/Human-Centered-AI-for-Data-Driven-Decision-Making/tree/main/projects/housing-community">https://github.com/ecanbaykurt/Human-Centered-AI-for-Data-Driven-Decision-Making/tree/main/projects/housing-community</a></p>
+  </main>
+</body>
+</html>

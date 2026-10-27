@@ -1,0 +1,25 @@
+date,category,value,status
+2025-04-01,Maintenance,13,In progress
+2025-04-01,Refill,36,In progress
+2025-04-01,Technical,33,Closed
+2025-04-01,Installation,27,Closed
+2025-05-01,Maintenance,22,Closed
+2025-05-01,Refill,47,Closed
+2025-05-01,Technical,42,Closed
+2025-05-01,Installation,21,In progress
+2025-06-01,Maintenance,15,Closed
+2025-06-01,Refill,40,Closed
+2025-06-01,Technical,39,In progress
+2025-06-01,Installation,28,Closed
+2025-07-01,Maintenance,26,In progress
+2025-07-01,Refill,45,In progress
+2025-07-01,Technical,30,In progress
+2025-07-01,Installation,25,In progress
+2025-08-01,Maintenance,22,Closed
+2025-08-01,Refill,40,Closed
+2025-08-01,Technical,40,In progress
+2025-08-01,Installation,36,In progress
+2025-09-01,Maintenance,29,In progress
+2025-09-01,Refill,34,Closed
+2025-09-01,Technical,34,Open
+2025-09-01,Installation,22,In progress

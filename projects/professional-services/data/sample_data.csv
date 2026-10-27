@@ -1,0 +1,25 @@
+date,category,value,status
+2025-04-01,Consultation,25,Closed
+2025-04-01,Document Review,21,Waiting
+2025-04-01,Referral,30,Waiting
+2025-04-01,Compliance Check,38,Waiting
+2025-05-01,Consultation,33,Open
+2025-05-01,Document Review,30,Waiting
+2025-05-01,Referral,32,Closed
+2025-05-01,Compliance Check,33,Waiting
+2025-06-01,Consultation,34,Open
+2025-06-01,Document Review,16,Open
+2025-06-01,Referral,27,Closed
+2025-06-01,Compliance Check,36,Closed
+2025-07-01,Consultation,34,Open
+2025-07-01,Document Review,25,Open
+2025-07-01,Referral,26,Closed
+2025-07-01,Compliance Check,31,Open
+2025-08-01,Consultation,28,Closed
+2025-08-01,Document Review,26,Closed
+2025-08-01,Referral,29,Waiting
+2025-08-01,Compliance Check,41,Open
+2025-09-01,Consultation,40,Waiting
+2025-09-01,Document Review,18,Waiting
+2025-09-01,Referral,26,Open
+2025-09-01,Compliance Check,30,Open

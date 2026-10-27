@@ -1,0 +1,25 @@
+date,category,value,status
+2025-04-01,Inbox,28,Upcoming
+2025-04-01,Calendar,26,Planned
+2025-04-01,Task,38,Planned
+2025-04-01,Follow-up,31,Upcoming
+2025-05-01,Inbox,39,Needs reply
+2025-05-01,Calendar,34,Upcoming
+2025-05-01,Task,46,Planned
+2025-05-01,Follow-up,20,Upcoming
+2025-06-01,Inbox,27,Planned
+2025-06-01,Calendar,29,Planned
+2025-06-01,Task,40,Needs reply
+2025-06-01,Follow-up,32,Needs reply
+2025-07-01,Inbox,42,Needs reply
+2025-07-01,Calendar,34,Upcoming
+2025-07-01,Task,33,Needs reply
+2025-07-01,Follow-up,27,Upcoming
+2025-08-01,Inbox,32,Upcoming
+2025-08-01,Calendar,29,Needs reply
+2025-08-01,Task,42,Planned
+2025-08-01,Follow-up,32,Upcoming
+2025-09-01,Inbox,38,Planned
+2025-09-01,Calendar,29,Upcoming
+2025-09-01,Task,35,Planned
+2025-09-01,Follow-up,30,Upcoming
