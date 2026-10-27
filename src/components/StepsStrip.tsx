@@ -1,7 +1,7 @@
 const STEPS = [
   { n: "01", label: "Choose a challenge" },
-  { n: "02", label: "Download your starter" },
-  { n: "03", label: "Make it yours" },
+  { n: "02", label: "Copy GitHub prompt" },
+  { n: "03", label: "Build in Cursor" },
   { n: "04", label: "Share what you build" },
 ] as const;
 

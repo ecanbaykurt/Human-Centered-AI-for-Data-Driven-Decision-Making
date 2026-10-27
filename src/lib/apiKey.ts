@@ -27,5 +27,10 @@ export function maskApiKey(key: string) {
 
 export function looksLikeAnthropicKey(key: string) {
   const t = key.trim();
-  return t.startsWith("sk-ant-") && t.length > 20;
+  // Console API keys are typically sk-ant-api03-… (usr tokens often fail auth)
+  return /^sk-ant-(api\d+-)?[A-Za-z0-9_-]{20,}$/.test(t);
+}
+
+export function looksLikeConsoleApiKey(key: string) {
+  return key.trim().startsWith("sk-ant-api");
 }

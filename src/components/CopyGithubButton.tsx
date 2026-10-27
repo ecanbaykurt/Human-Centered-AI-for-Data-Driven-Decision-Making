@@ -5,6 +5,7 @@ import { Check, Copy, FolderGit2, Loader2 } from "lucide-react";
 import type { Challenge } from "@/data/challenges";
 import type { ProjectBriefFields } from "@/data/github";
 import { getStoredApiKey } from "@/lib/apiKey";
+import { copyTextToClipboard } from "@/lib/artifacts";
 
 type CopyGithubButtonProps = {
   challenge: Challenge;
@@ -29,6 +30,7 @@ export default function CopyGithubButton({
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
   const [note, setNote] = useState("");
+  const [promptPreview, setPromptPreview] = useState("");
 
   const baseClass =
     variant === "dark"
@@ -76,15 +78,23 @@ export default function CopyGithubButton({
         throw new Error(data.error || "No prompt returned");
       }
 
-      await navigator.clipboard.writeText(data.prompt);
-      setCopied(true);
+      const ok = await copyTextToClipboard(data.prompt);
       onCopied?.(data.prompt);
-      setNote(
-        data.warning
-          ? data.warning
-          : `Copied · paste into Cursor Agent. Path: ${data.path}/`,
-      );
-      setTimeout(() => setCopied(false), 2200);
+      if (ok) {
+        setCopied(true);
+        setPromptPreview("");
+        setNote(
+          data.warning
+            ? data.warning
+            : `Copied · paste into Cursor Agent. Path: ${data.path}/`,
+        );
+        setTimeout(() => setCopied(false), 2200);
+      } else {
+        setPromptPreview(data.prompt);
+        setNote(
+          "Clipboard blocked — select the prompt below and copy (⌘/Ctrl+C), then paste into Cursor.",
+        );
+      }
     } catch (err) {
       console.error(err);
       setNote(
@@ -121,6 +131,15 @@ export default function CopyGithubButton({
         <p className="mt-2 max-w-[42ch] text-[11px] leading-snug text-muted" role="status">
           {note}
         </p>
+      ) : null}
+      {promptPreview ? (
+        <textarea
+          className="field-control mt-2 max-h-40 min-h-[100px] resize-y font-mono text-[11px]"
+          readOnly
+          value={promptPreview}
+          onFocus={(e) => e.currentTarget.select()}
+          aria-label="Cursor Agent prompt"
+        />
       ) : null}
     </div>
   );

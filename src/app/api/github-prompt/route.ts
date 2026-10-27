@@ -124,13 +124,18 @@ ${JSON.stringify(
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Claude failed";
+    const auth = /api.?key|authentication|unauthorized|401|invalid/i.test(
+      message,
+    );
     return Response.json({
       prompt: fallback,
       source: "template",
       repo: meta.repo,
       path: meta.path,
       treeUrl: meta.treeUrl,
-      warning: `Claude unavailable (${message}). Copied template prompt instead.`,
+      warning: auth
+        ? "Claude key invalid — copied open-source template prompt (still paste-ready for Cursor). Add a Console key (sk-ant-api03-…) for richer customization."
+        : `Claude unavailable (${message}). Copied template prompt instead.`,
     });
   }
 }

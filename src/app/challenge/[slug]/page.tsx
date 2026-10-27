@@ -13,11 +13,11 @@ import ChallengeActions from "./ChallengeActions";
 export const instant = false;
 
 const CURSOR_STEPS = [
-  "Open the downloaded kit in Cursor and read PROJECT_BRIEF.md.",
-  "Ask the assistant to clarify the decision, audience, and success criteria.",
-  "Inspect sample (or your) data — schema, gaps, and three defensible metrics.",
-  "Adapt the dashboard UI to your brief; keep empty and error states.",
-  "If connecting real data, plan auth, RLS, and secrets on the server only.",
+  "Copy GitHub on this page, then paste the prompt into Cursor Agent.",
+  "Clone/open the repo and work in projects/<slug>/ (README + AGENT.md).",
+  "Clarify the decision, audience, and success criteria from your brief.",
+  "Inspect sample_data.csv — schema, gaps, and three defensible metrics.",
+  "Adapt the starter UI; keep empty/error states; never commit API keys.",
   "Review calculations, attribution, and privacy before sharing or deploying.",
 ] as const;
 

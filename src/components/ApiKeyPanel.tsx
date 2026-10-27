@@ -68,12 +68,15 @@ export default function ApiKeyPanel({ compact, onSaved }: ApiKeyPanelProps) {
         Bring your own key
       </h2>
       <p className="mt-2 text-[13px] leading-relaxed text-muted">
-        Key stays in <code className="font-mono text-[12px]">localStorage</code>{" "}
-        on this device and is sent only to{" "}
-        <code className="font-mono text-[12px]">/api/clickops</code>. Prefer{" "}
+        Use a Console API key (usually{" "}
+        <code className="font-mono text-[12px]">sk-ant-api03-…</code>
+        ). Key stays in{" "}
+        <code className="font-mono text-[12px]">localStorage</code> on this
+        device and is sent only to{" "}
+        <code className="font-mono text-[12px]">/api/clickops</code> and{" "}
+        <code className="font-mono text-[12px]">/api/github-prompt</code>. Prefer{" "}
         <code className="font-mono text-[12px]">ANTHROPIC_API_KEY</code> in{" "}
-        <code className="font-mono text-[12px]">.env.local</code> for server-side
-        use.
+        <code className="font-mono text-[12px]">.env.local</code> for deploy.
       </p>
 
       {saved ? (

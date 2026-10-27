@@ -6,13 +6,13 @@ const STEPS = [
   },
   {
     n: "02",
-    title: "Download & explore",
-    body: "Describe your goal and data, then download a personalized project kit with a working demo and build prompts.",
+    title: "Copy GitHub",
+    body: "Customize your brief, then Copy GitHub. Claude builds a Cursor Agent prompt aimed at projects/<slug>/ in the public repo.",
   },
   {
     n: "03",
-    title: "Make it your own",
-    body: "Bring your data, check the results, and follow the guide to connect and publish your project.",
+    title: "Build & share",
+    body: "Paste into Cursor Agent, iterate on the starter, then preview and deploy (Vercel) when ready.",
   },
 ] as const;
 

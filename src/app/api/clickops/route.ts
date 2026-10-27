@@ -73,9 +73,28 @@ export async function POST(req: Request) {
       messages: await convertToModelMessages(messages),
     });
 
-    return result.toUIMessageStreamResponse();
+    return result.toUIMessageStreamResponse({
+      onError: (err) => {
+        const message =
+          err instanceof Error ? err.message : "Claude request failed";
+        if (/api.?key|authentication|unauthorized|401|invalid/i.test(message)) {
+          return "Claude API key is missing or invalid. Add a valid key from console.anthropic.com (usually starts with sk-ant-api03-) in Settings or .env.local. Copy GitHub still works with a template prompt.";
+        }
+        return message;
+      },
+    });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Claude request failed";
-    return Response.json({ error: message }, { status: 502 });
+    const auth = /api.?key|authentication|unauthorized|401|invalid/i.test(
+      message,
+    );
+    return Response.json(
+      {
+        error: auth
+          ? "Claude API key is missing or invalid. Use a key from console.anthropic.com (sk-ant-api03-…) in Settings or .env.local."
+          : message,
+      },
+      { status: auth ? 401 : 502 },
+    );
   }
 }

@@ -12,6 +12,7 @@ import {
 import type { Challenge } from "@/data/challenges";
 import { projectGithubUrl, projectPath } from "@/data/github";
 import { getStoredApiKey } from "@/lib/apiKey";
+import { copyTextToClipboard } from "@/lib/artifacts";
 
 const SUPPLY_DATASETS = [
   "UCI Online Retail",
@@ -281,11 +282,13 @@ th{background:#eeeaff}</style></head><body>
       };
       if (!data.prompt) throw new Error(data.error || "No prompt returned");
 
-      await navigator.clipboard.writeText(data.prompt);
+      const ok = await copyTextToClipboard(data.prompt);
       setStatus(
-        data.warning
+        ok
           ? data.warning
-          : `Copied GitHub + Cursor prompt. Paste into Cursor Agent. Path: ${data.path || projectPath(challenge.slug)}/`,
+            ? data.warning
+            : `Copied GitHub + Cursor prompt. Paste into Cursor Agent. Path: ${data.path || projectPath(challenge.slug)}/`
+          : "Clipboard blocked — prompt was generated; allow clipboard or use Copy GitHub on the card (shows selectable text).",
       );
     } catch (err) {
       console.error(err);

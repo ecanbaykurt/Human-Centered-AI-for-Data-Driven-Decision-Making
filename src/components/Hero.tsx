@@ -17,8 +17,8 @@ export default function Hero() {
 
         <p className="mt-5 max-w-[570px] text-base leading-[1.7] text-muted">
           Turn a real problem into a dashboard you can make your own. Choose a
-          challenge, explore the data, download a working starter, and make it
-          your own in Cursor.
+          challenge, explore the data, Copy GitHub, and paste into Cursor Agent
+          to build on the open-source project path.
         </p>
 
         <div className="mt-7 flex flex-wrap items-center gap-5">
